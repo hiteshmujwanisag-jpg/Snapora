@@ -24,7 +24,7 @@
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png",
-       "bundler": "metro"
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router",
@@ -39,11 +39,19 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bcb2f4c7-6c8d-4100-ba19-785051382e8e"
+      }
+    },
+    "owner": "hxitesh"
   }
 }
