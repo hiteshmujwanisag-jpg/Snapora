@@ -2,25 +2,25 @@ import { Slot, Stack } from "expo-router";
 import "../global.css";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { getItem } from "./utils/storage"; // SecureStore wrapper
+import { loadUserFromStorage } from "@/store/slice/authSlice";
+import { store } from "@/store/store";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [ready, setReady] = useState(false);
-  const [onboarded, setOnboarded] = useState<boolean | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const { user, loading, onboarding, token } = useSelector(
+    (state: any) => state.auth
+  );
 
   useEffect(() => {
     async function load() {
-      await new Promise(res => setTimeout(res, 2000));
+      await new Promise((res) => setTimeout(res, 2000));
 
-      const o = await getItem("onboarded");
-      const t = await getItem("token");
-
-      setOnboarded(!!o);
-      setToken(t);
-
+      dispatch(loadUserFromStorage());
       setReady(true);
       await SplashScreen.hideAsync();
     }
@@ -31,27 +31,33 @@ export default function RootLayout() {
   if (!ready) return null;
 
   /** ⭐ ONBOARDING ROUTE GROUP */
-  if (!onboarded) {
+  if (!onboarding) {
     return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(onboarding)" />
-      </Stack>
+      <Provider store={store}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(onboarding)" />
+        </Stack>
+      </Provider>
     );
   }
 
   /** ⭐ AUTH ROUTE GROUP */
   if (!token) {
     return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
-      </Stack>
+      <Provider store={store}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)" />
+        </Stack>
+      </Provider>
     );
   }
 
   /** ⭐ APP TAB ROUTES */
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(app)" />
-    </Stack>
+    <Provider store={store}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(app)" />
+      </Stack>
+    </Provider>
   );
 }
