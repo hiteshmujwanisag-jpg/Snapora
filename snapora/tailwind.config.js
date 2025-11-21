@@ -18,6 +18,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+       backgroundImage: {
+        main: 'linear-gradient(to bottom right, #F1FF22 25%, #C2FF1C 75%)',
+      },
       colors: {
         primary: {
           0: 'rgb(var(--color-primary-0)/<alpha-value>)',

@@ -1,63 +1,30 @@
-import { Slot, Stack } from "expo-router";
+import { Slot } from "expo-router";
 import "../global.css";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { getItem } from "./utils/storage"; // SecureStore wrapper
-import { loadUserFromStorage } from "@/store/slice/authSlice";
+import { Provider } from "react-redux";
 import { store } from "@/store/store";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [ready, setReady] = useState(false);
-  const dispatch = useDispatch();
-  const { user, loading, onboarding, token } = useSelector(
-    (state: any) => state.auth
-  );
 
   useEffect(() => {
-    async function load() {
-      await new Promise((res) => setTimeout(res, 2000));
-
-      dispatch(loadUserFromStorage());
+    const prepare = async () => {
+      await new Promise(res => setTimeout(res, 2000));
       setReady(true);
       await SplashScreen.hideAsync();
-    }
+    };
 
-    load();
+    prepare();
   }, []);
 
   if (!ready) return null;
 
-  /** ⭐ ONBOARDING ROUTE GROUP */
-  if (!onboarding) {
-    return (
-      <Provider store={store}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(onboarding)" />
-        </Stack>
-      </Provider>
-    );
-  }
-
-  /** ⭐ AUTH ROUTE GROUP */
-  if (!token) {
-    return (
-      <Provider store={store}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)" />
-        </Stack>
-      </Provider>
-    );
-  }
-
-  /** ⭐ APP TAB ROUTES */
   return (
     <Provider store={store}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(app)" />
-      </Stack>
+      <Slot />
     </Provider>
   );
 }

@@ -1,13 +1,21 @@
 import { View, Text, TextInput, Button } from "react-native";
 import { useRouter } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 import { setItem } from "../utils/storage";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "@/store/slice/authSlice";
 
 export default function Login() {
   const router: any = useRouter();
+  const dispatch = useDispatch();
 
   async function handleLogin() {
-    await setItem("token", "user_token");
+    const token = "user_token";
+    const user = { id: "1", email: "user@example.com" };
+    
+    await setItem("token", token);
+    await setItem("user", JSON.stringify(user));
+    
+    dispatch(loginSuccess({ token, user }));
     router.replace("/(app)/(tabs)/home");
   }
 

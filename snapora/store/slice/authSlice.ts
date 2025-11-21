@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getItem, setItem, deleteItem } from "../../app/utils/storage";
+import { getItem } from "../../app/utils/storage";
 
 // 🔹 AUTO LOGIN: fetch token on app start
 export const loadUserFromStorage: any = createAsyncThunk(
@@ -10,9 +10,9 @@ export const loadUserFromStorage: any = createAsyncThunk(
     const onboarding = await getItem("onboarded");
 
     if (token && user) {
-      return { token, user: JSON.parse(user), onboarding };
+      return { token, user: JSON.parse(user), onboarding: onboarding === "true" };
     } else {
-      return { token: null, user: null };
+      return { token: null, user: null, onboarding: onboarding === "true" };
     }
   }
 );
@@ -35,8 +35,9 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.loading = false;
-      deleteItem("token");
-      deleteItem("user");
+    },
+    setOnboarding: (state, action) => {
+      state.onboarding = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,5 +53,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout, setOnboarding } = authSlice.actions;
 export default authSlice.reducer;
