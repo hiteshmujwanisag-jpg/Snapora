@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <View>
       <Text>Home Screen</Text>
-      <Button className="bg-main">Home</Button>
+      <Button className="bg-main">
+        <Text>Home</Text>
+      </Button>
     </View>
   );
 }

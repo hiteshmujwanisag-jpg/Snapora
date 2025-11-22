@@ -1,8 +1,10 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StatusBar } from "react-native";
 import { useRouter } from "expo-router";
 import { setItem } from "../utils/storage";
 import { useDispatch } from "react-redux";
 import { setOnboarding } from "@/store/slice/authSlice";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomCarosuel from "../components/CustomCarosuel";
 
 export default function Onboarding() {
   const router: any = useRouter();
@@ -15,10 +17,12 @@ export default function Onboarding() {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 30, fontWeight: "bold" }}>Welcome to MyApp</Text>
-      
-      <Button title="Get Started" onPress={finish} />
-    </View>
+    <SafeAreaView className="bg-white flex-1">
+      <View className="p-3 ">
+        <View className="">
+          <Text className="text-3xl font-bold">Snapora</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }

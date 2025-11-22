@@ -10,7 +10,11 @@ export const loadUserFromStorage: any = createAsyncThunk(
     const onboarding = await getItem("onboarded");
 
     if (token && user) {
-      return { token, user: JSON.parse(user), onboarding: onboarding === "true" };
+      return {
+        token,
+        user: JSON.parse(user),
+        onboarding: onboarding === "true",
+      };
     } else {
       return { token: null, user: null, onboarding: onboarding === "true" };
     }
