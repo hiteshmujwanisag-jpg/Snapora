@@ -21,25 +21,5 @@ export default function Login() {
     router.replace("/(app)/(tabs)/home");
   }
 
-  return (
-    <SafeAreaView>
-      <View>
-        <Text style={{ fontSize: 22 }}>Login</Text>
-
-        <TextInput placeholder="Email" />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={{ borderWidth: 1, marginTop: 10 }}
-        />
-
-        <Button title="Login" onPress={handleLogin} />
-
-        <Button
-          title="Create Account"
-          onPress={() => router.push("/(auth)/register")}
-        />
-      </View>
-    </SafeAreaView>
-  );
+  return <SafeAreaView></SafeAreaView>;
 }

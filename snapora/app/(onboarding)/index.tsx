@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setOnboarding } from "@/store/slice/authSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomCarosuel from "../components/CustomCarosuel";
+import { Image } from "@/components/ui/image";
 
 export default function Onboarding() {
   const router: any = useRouter();
@@ -18,9 +19,18 @@ export default function Onboarding() {
 
   return (
     <SafeAreaView className="bg-white flex-1">
-      <View className="p-3 ">
+      <View className="p-3">
         <View className="">
-          <Text className="text-3xl font-bold">Snapora</Text>
+          <View className="flex flex-row gap-2 items-center">
+            <Image
+              source={require("@/assets/images/icon.png")}
+              size="xs"
+              className="rounded-md"
+            />
+            <Text className="text-4xl font-bold font-playfairBold">
+              Snapora
+            </Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>

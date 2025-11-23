@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, ActivityIndicator } from "react-native";
 
 export default function Index() {
-  const { onboarding, token, loading } = useSelector((state: any) => state.auth);
+  const { onboarding, token, loading } = useSelector(
+    (state: any) => state.auth
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
