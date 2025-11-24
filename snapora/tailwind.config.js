@@ -22,6 +22,8 @@ module.exports = {
         main: "linear-gradient(to bottom right, #F1FF22 25%, #C2FF1C 75%)",
       },
       colors: {
+        subtle: "#C5CBCB",
+        primarySolid: "#F1FF22",
         primary: {
           0: "rgb(var(--color-primary-0)/<alpha-value>)",
           50: "rgb(var(--color-primary-50)/<alpha-value>)",
