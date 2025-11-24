@@ -4,7 +4,8 @@ import { setItem } from "../utils/storage";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/store/slice/authSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomCarosuel from "../components/CustomCarosuel";
+import { Image } from "@/components/ui/image";
+import LoginForm from "../components/LoginForm";
 
 export default function Login() {
   const router: any = useRouter();
@@ -21,5 +22,31 @@ export default function Login() {
     router.replace("/(app)/(tabs)/home");
   }
 
-  return <SafeAreaView></SafeAreaView>;
+  return (
+    <SafeAreaView className="bg-white flex-1">
+      <View className="p-5 flex justify-center flex-1">
+        <View className="">
+          <View className="flex flex-row gap-2 items-center">
+            <Image
+              source={require("@/assets/images/icon.png")}
+              size={"xs"}
+              className="rounded-md"
+            />
+            <Text className="text-3xl font-bold font-dmBold tracking-tighter">
+              Snapora
+            </Text>
+          </View>
+        </View>
+        <View className="mt-3">
+          <Text className="text-lg font-dmSemi">A place made for your memories and meaningful connections,</Text>
+        </View>
+        <View className="mt-10">
+          <Text className="font-dmBold text-4xl">Welcome Back !</Text>
+        </View>
+        <View>
+          <LoginForm/>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 }

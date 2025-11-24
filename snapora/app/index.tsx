@@ -22,9 +22,9 @@ export default function Index() {
     );
   }
 
-  if (!onboarding) {
-    return <Redirect href="/(onboarding)" />;
-  }
+  // if (!onboarding) {
+  //   return <Redirect href="/(onboarding)" />;
+  // }
 
   if (!token) {
     return <Redirect href="/(auth)/login" />;
