@@ -9,6 +9,7 @@ import {
 export const loginUser = async (req, res) => {
   try {
     const { usernameoremail, password } = req.body;
+    console.log(usernameoremail, password);
 
     if (!usernameoremail || !password) {
       return res
@@ -18,14 +19,13 @@ export const loginUser = async (req, res) => {
 
     let user = await User.findOne({
       $or: [{ email: usernameoremail }, { username: usernameoremail }],
-    });
+    }).select("+password");
 
     if (!user) {
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-
     const correctPassword = await decryptPassword(password, user.password);
 
     if (!correctPassword) {
@@ -36,14 +36,12 @@ export const loginUser = async (req, res) => {
 
     const token = await generateToken({ id: user._id });
 
-    res
-      .status(200)
-      .json({
-        sucess: true,
-        token,
-        message: "Login Successfull !",
-        user: user,
-      });
+    res.status(200).json({
+      sucess: true,
+      token,
+      message: "Login Successfull !",
+      user: user,
+    });
   } catch (error) {
     console.log(error, "error while loging in on server");
     return res.status(500).json({ success: false, message: "server error" });
@@ -53,6 +51,7 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    console.log(username, email, password);
 
     if (!username || !email || !password) {
       return res
@@ -84,6 +83,31 @@ export const registerUser = async (req, res) => {
       .json({ message: "Registered Successfully !", token, user: newUser });
   } catch (error) {
     console.log(error, "error while register on server");
+    return res.status(500).json({ success: false, message: "server error" });
+  }
+};
+
+export const getUserData = async (req, res) => {
+  try {
+    const id = req.user;
+
+    const user = await User.findOne({ _id: id });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Found" });
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "user data fetched Successfully",
+        user: user,
+      });
+  } catch (error) {
+    console.log(error, "error while fetching usedData from database");
     return res.status(500).json({ success: false, message: "server error" });
   }
 };

@@ -1,0 +1,3 @@
+PORT=4040
+MONGO_URI=mongodb+srv://hiteshmujwaniofficial:hitevya@cluster0.8cnvzue.mongodb.net/snapora
+JWT_SECRET=hiteshmujwani
