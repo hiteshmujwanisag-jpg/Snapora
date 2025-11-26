@@ -11,26 +11,27 @@ import LoginForm from "../components/LoginForm";
 
 export default function Login() {
   return (
-    <SafeAreaView className=" flex-1 ">
+    <SafeAreaView className="flex-1">
       <StatusBar barStyle={"dark-content"} />
-      <View className=" p-5 mt-5 flex-[0.40] ">
+      <View className="px-5 mt-2 flex-[0.40] ">
         <View className="flex-row gap-2 items-center">
           <Image
             source={require("@/assets/images/icon.png")}
             size="xs"
+            alt="logo"
             className="rounded-md"
           />
-          <Text className="text-3xl font-dmBold tracking-tighter ">Snapora</Text>
+          <Text className="text-3xl font-dmBold tracking-tighte">Snapora</Text>
         </View>
         <View className="mt-3">
-          <Text className="text-xl font-dmSemi ">
+          <Text className="text-xl font-dmSem">
             A place made for your memories and meaningful connections
           </Text>
         </View>
       </View>
-      <View className="p-5 flex-1 rounded-t-[30px] bg-white shadow-lg">
-        <View className="mt-3">
-          <Text className="font-dmBold text-4xl">Welcome Back!</Text>
+      <View className="p-5 flex-1 mb-[-35px] rounded-t-[50px] bg-white shadow-lg">
+        <View className="mt-5 mb-2">
+          <Text className="font-dmBold text-4xl">Welcome Back !</Text>
         </View>
         <LoginForm />
       </View>

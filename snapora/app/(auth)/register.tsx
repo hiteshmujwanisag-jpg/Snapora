@@ -5,8 +5,8 @@ import RegisterForm from "../components/RegisterForm";
 
 export default function Register() {
   return (
-    <SafeAreaView className="flex-1">
-      <View className="p-5 mt-5 flex-[0.40]">
+    <SafeAreaView className="flex-1 ">
+      <View className="px-5 mt-2 flex-[0.40]">
         <View className="flex-row gap-2 items-center">
           <Image
             source={require("@/assets/images/icon.png")}
@@ -21,16 +21,13 @@ export default function Register() {
             A place made for your memories and meaningful connections
           </Text>
         </View>
-
       </View>
-      <View className="p-5 flex-1 rounded-t-[30px] bg-white shadow-lg">
-        <View className="mt-3">
+      <View className="p-5 flex-1 rounded-t-[30px] mb-[-35px] bg-white shadow-lg">
+        <View className="mt-5 mb-2">
           <Text className="font-dmBold text-4xl">Create Account</Text>
         </View>
         <RegisterForm />
-        </View>
-
-        
+      </View>
     </SafeAreaView>
   );
 }

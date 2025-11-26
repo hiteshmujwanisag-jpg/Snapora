@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Alert, Text, View } from "react-native";
+import { Link, useRouter } from "expo-router";
 import { Eye, EyeOff } from "lucide-react-native";
 import {
   FormControl,
@@ -14,11 +14,16 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { VStack } from "@/components/ui/vstack";
 import API from "../utils/ApiInstance";
 import { LOGIN_USER } from "../constant/apiUrls";
+import { setItem } from "../utils/storage";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "@/store/slice/authSlice";
 
 export default function LoginForm() {
   const [usernameoremail, setUsernameEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -26,12 +31,29 @@ export default function LoginForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await API.post("/api/v1/auth/login",{usernameoremail,password})
-      console.log(response)
+      const response = await API.post(LOGIN_USER, {
+        usernameoremail,
+        password,
+      });
+      console.log(response.data.success);
+      if (response?.data?.success) {
+        await setItem("token", response.data.token);
+        await setItem("user", JSON.stringify(response.data.user));
+
+        dispatch(
+          loginSuccess({
+            token: response.data.token,
+            user: response.data.user,
+          })
+        );
+
+        router.replace("/(app)/(tabs)/home");
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      Alert.alert("failed");
     }
-  }
+  };
 
   return (
     <VStack className="mt-4 flex gap-3">
@@ -42,7 +64,9 @@ export default function LoginForm() {
         isRequired={false}
       >
         <FormControlLabel>
-          <FormControlLabelText className="text-xl">Username Or Email</FormControlLabelText>
+          <FormControlLabelText className="text-xl">
+            Username Or Email
+          </FormControlLabelText>
         </FormControlLabel>
         <Input className="my-1" size="xl">
           <InputField

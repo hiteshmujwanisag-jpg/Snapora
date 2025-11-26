@@ -9,7 +9,6 @@ import {
 export const loginUser = async (req, res) => {
   try {
     const { usernameoremail, password } = req.body;
-    console.log(usernameoremail, password);
 
     if (!usernameoremail || !password) {
       return res
@@ -37,7 +36,7 @@ export const loginUser = async (req, res) => {
     const token = await generateToken({ id: user._id });
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       token,
       message: "Login Successfull !",
       user: user,
@@ -77,27 +76,36 @@ export const registerUser = async (req, res) => {
 
     const token = await generateToken({ id: newUser._id });
 
-    return res
-      .status(201)
-      .json({ message: "Registered Successfully !", token, user: newUser });
+    return res.status(201).json({
+      success: true,
+      message: "Registered Successfully !",
+      token,
+      user: newUser,
+    });
   } catch (error) {
     console.log(error, "error while register on server");
     return res.status(500).json({ success: false, message: "server error" });
   }
 };
 
-export const updateUser = async (req,res) =>{
+export const updateUser = async (req, res) => {
   try {
-    const userId = req.user._id
+    const userId = req.user._id;
 
-    const updatedUser = await User.findByIdAndUpdate(userId,req.body,{new:true})
-    
-    return res.status(200).json({success:true,message:"User Updated Successfully !",user:updatedUser})
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
+      new: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "User Updated Successfully !",
+      user: updatedUser,
+    });
   } catch (error) {
-    console.log(error,"error while updating user details")
-    return res.status(500).json({success:false,message:"server error"})
+    console.log(error, "error while updating user details");
+    return res.status(500).json({ success: false, message: "server error" });
   }
-}
+};
 
 export const getUserData = async (req, res) => {
   try {
@@ -111,13 +119,11 @@ export const getUserData = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "user data fetched Successfully",
-        user: user,
-      });
+    res.status(200).json({
+      success: true,
+      message: "user data fetched Successfully",
+      user: user,
+    });
   } catch (error) {
     console.log(error, "error while fetching usedData from database");
     return res.status(500).json({ success: false, message: "server error" });

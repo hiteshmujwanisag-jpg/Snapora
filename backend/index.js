@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import commentRoutes from './routes/commentRoutes.js'
+import commentRoutes from "./routes/commentRoutes.js";
 import { connectDB } from "./db/db.js";
+import os from "os";
 
 dotenv.config();
 
@@ -30,9 +31,22 @@ app.get("/api-check", async (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
-app.use('/api/v1/post',postRoutes)
-app.use('/api/v1/comment',commentRoutes)
+app.use("/api/v1/post", postRoutes);
+app.use("/api/v1/comment", commentRoutes);
 
 app.listen(PORT, () => {
-  console.log("Server Started On Port " + PORT);
+  const networkInterfaces = os.networkInterfaces();
+  let localIP = "localhost";
+
+  Object.keys(networkInterfaces).forEach((key) => {
+    networkInterfaces[key].forEach((details) => {
+      if (details.family === "IPv4" && !details.internal) {
+        localIP = details.address;
+      }
+    });
+  });
+
+  console.log(`🚀 Server running at:`);
+  console.log(`➡ Local:    http://localhost:${PORT}`);
+  console.log(`➡ Network:  http://${localIP}:${PORT}`);
 });

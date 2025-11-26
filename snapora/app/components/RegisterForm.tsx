@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Alert, Text, View } from "react-native";
+import { Link, useRouter } from "expo-router";
 import { Eye, EyeOff } from "lucide-react-native";
 import {
   FormControl,
@@ -18,12 +18,17 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { VStack } from "@/components/ui/vstack";
 import API from "../utils/ApiInstance";
 import { REGISTER_USER } from "../constant/apiUrls";
+import { setItem } from "../utils/storage";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "@/store/slice/authSlice";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -31,12 +36,27 @@ export default function RegisterForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await API.post(REGISTER_USER,{username,password,email})
-      console.log(response)
+      const response = await API.post(REGISTER_USER, {
+        username,
+        password,
+        email,
+      });
+
+      if (response?.data?.success) {
+        await setItem("token", response.data.token);
+        await setItem("user", JSON.stringify(response.data.user));
+
+        dispatch(
+          loginSuccess({ user: response.data.user, token: response.data.token })
+        );
+
+        router.replace("/(app)/(tabs)/home");
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      Alert.alert("Failed");
     }
-  }
+  };
 
   return (
     <VStack className="mt-4 flex gap-3">
