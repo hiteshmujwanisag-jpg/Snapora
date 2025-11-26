@@ -16,9 +16,10 @@ import { AlertCircleIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import { VStack } from "@/components/ui/vstack";
+import API from "../utils/ApiInstance";
+import { REGISTER_USER } from "../constant/apiUrls";
 
 export default function RegisterForm() {
-  const [isInvalid, setIsInvalid] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,18 +29,18 @@ export default function RegisterForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = () => {
-    if (password.length < 6 || !username || !email) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
+  const handleSubmit = async () => {
+    try {
+      const response = await API.post(REGISTER_USER,{username,password,email})
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
-  };
+  }
 
   return (
     <VStack className="mt-4 flex gap-3">
       <FormControl
-        isInvalid={isInvalid}
         size="md"
         isDisabled={false}
         isReadOnly={false}
@@ -59,16 +60,9 @@ export default function RegisterForm() {
             onChangeText={(text) => setUsername(text)}
           />
         </Input>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-red-500" />
-          <FormControlErrorText className="text-red-500">
-            Username is required!
-          </FormControlErrorText>
-        </FormControlError>
       </FormControl>
 
       <FormControl
-        isInvalid={isInvalid}
         size="md"
         isDisabled={false}
         isReadOnly={false}
@@ -86,16 +80,9 @@ export default function RegisterForm() {
             onChangeText={(text) => setEmail(text)}
           />
         </Input>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-red-500" />
-          <FormControlErrorText className="text-red-500">
-            Email is required!
-          </FormControlErrorText>
-        </FormControlError>
       </FormControl>
 
       <FormControl
-        isInvalid={isInvalid}
         size="md"
         isDisabled={false}
         isReadOnly={false}
@@ -126,12 +113,6 @@ export default function RegisterForm() {
             Must be at least 6 characters.
           </FormControlHelperText>
         </FormControlHelper>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-red-500" />
-          <FormControlErrorText className="text-red-500">
-            At least 6 characters are required.
-          </FormControlErrorText>
-        </FormControlError>
       </FormControl>
 
       <View className="flex items-center gap-3 mt-3">

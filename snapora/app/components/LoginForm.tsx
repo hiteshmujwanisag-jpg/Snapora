@@ -5,21 +5,18 @@ import { Eye, EyeOff } from "lucide-react-native";
 import {
   FormControl,
   FormControlLabel,
-  FormControlError,
-  FormControlErrorText,
-  FormControlErrorIcon,
   FormControlHelper,
   FormControlHelperText,
   FormControlLabelText,
 } from "@/components/ui/form-control";
-import { AlertCircleIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import { VStack } from "@/components/ui/vstack";
+import API from "../utils/ApiInstance";
+import { LOGIN_USER } from "../constant/apiUrls";
 
 export default function LoginForm() {
-  const [isInvalid, setIsInvalid] = useState(false);
-  const [email, setEmail] = useState("");
+  const [usernameoremail, setUsernameEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,44 +24,37 @@ export default function LoginForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = () => {
-    if (password.length < 6) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
+  const handleSubmit = async () => {
+    try {
+      const response = await API.post("/api/v1/auth/login",{usernameoremail,password})
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
-  };
+  }
 
   return (
     <VStack className="mt-4 flex gap-3">
       <FormControl
-        isInvalid={isInvalid}
         size="md"
         isDisabled={false}
         isReadOnly={false}
         isRequired={false}
       >
         <FormControlLabel>
-          <FormControlLabelText className="text-xl">Email</FormControlLabelText>
+          <FormControlLabelText className="text-xl">Username Or Email</FormControlLabelText>
         </FormControlLabel>
         <Input className="my-1" size="xl">
           <InputField
             className="placeholder:text-subtle "
             type="text"
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+            placeholder="Username or Email"
+            value={usernameoremail}
+            onChangeText={(text) => setUsernameEmail(text)}
           />
         </Input>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-red-500" />
-          <FormControlErrorText className="text-red-500">
-            Email is required !
-          </FormControlErrorText>
-        </FormControlError>
       </FormControl>
       <FormControl
-        isInvalid={isInvalid}
         size="md"
         isDisabled={false}
         isReadOnly={false}
@@ -95,12 +85,6 @@ export default function LoginForm() {
             Must be at least 6 characters.
           </FormControlHelperText>
         </FormControlHelper>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-red-500" />
-          <FormControlErrorText className="text-red-500">
-            At least 6 characters are required.
-          </FormControlErrorText>
-        </FormControlError>
       </FormControl>
       <View className="flex items-center gap-3 mt-3">
         <Button
