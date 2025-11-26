@@ -51,7 +51,6 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    console.log(username, email, password);
 
     if (!username || !email || !password) {
       return res
@@ -86,6 +85,19 @@ export const registerUser = async (req, res) => {
     return res.status(500).json({ success: false, message: "server error" });
   }
 };
+
+export const updateUser = async (req,res) =>{
+  try {
+    const userId = req.user._id
+
+    const updatedUser = await User.findByIdAndUpdate(userId,req.body,{new:true})
+    
+    return res.status(200).json({success:true,message:"User Updated Successfully !",user:updatedUser})
+  } catch (error) {
+    console.log(error,"error while updating user details")
+    return res.status(500).json({success:false,message:"server error"})
+  }
+}
 
 export const getUserData = async (req, res) => {
   try {

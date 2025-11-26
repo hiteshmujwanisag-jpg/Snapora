@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from './routes/commentRoutes.js'
 import { connectDB } from "./db/db.js";
 
 dotenv.config();
@@ -28,6 +30,8 @@ app.get("/api-check", async (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use('/api/v1/post',postRoutes)
+app.use('/api/v1/comment',commentRoutes)
 
 app.listen(PORT, () => {
   console.log("Server Started On Port " + PORT);

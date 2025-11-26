@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
+      fullname:{
+        type:String,
+      },
       username:{
         type:String,
         required: true,
@@ -17,6 +20,10 @@ const userSchema = mongoose.Schema({
       required: true,
       select: false
     },
+      followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+
+  savedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }]
     
 },{timestamps:true})
 
