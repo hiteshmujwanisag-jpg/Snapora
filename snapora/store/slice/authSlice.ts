@@ -1,22 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getItem } from "../../app/utils/storage";
+import API from "@/app/utils/ApiInstance";
+import { GET_USER_DATA } from "@/app/constant/apiUrls";
 
 // 🔹 AUTO LOGIN: fetch token on app start
 export const loadUserFromStorage: any = createAsyncThunk(
   "auth/loadUserFromStorage",
   async () => {
-    const token = await getItem("token");
-    const user = await getItem("user");
+    try {
+          const token = await getItem("token");
     const onboarding = await getItem("onboarded");
-
-    if (token && user) {
-      return {
-        token,
-        user: JSON.parse(user),
-        onboarding: onboarding === "true",
-      };
+    
+    if (token) {
+        const response = await API.get(GET_USER_DATA)
+        if(response?.data?.success){
+          return {user:response.data.user,token:token}
+        }
     } else {
       return { token: null, user: null, onboarding: onboarding === "true" };
+    }
+    } catch (error) {
+      console.log(error,"error while initially fetching user data from get-user-data")
+      return {user:null,token:null}
     }
   }
 );

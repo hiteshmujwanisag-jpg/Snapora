@@ -3,13 +3,23 @@ import User from "../models/user.model.js";
 
 export const verifyToken = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
+    let token;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ success: false, message: "Unauthorized" });
+
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
     }
 
-    const token = authHeader.split(" ")[1];
+
+    if (!token && req.cookies) {
+      token = req.cookies.token || req.cookies.accessToken;
+    }
+
+
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -19,8 +29,8 @@ export const verifyToken = async (req, res, next) => {
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-    req.user = user;
 
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({

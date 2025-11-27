@@ -3,7 +3,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+<<<<<<< Updated upstream
 import commentRoutes from "./routes/commentRoutes.js";
+=======
+import commentRoutes from './routes/commentRoutes.js'
+import cookieParser from "cookie-parser";
+>>>>>>> Stashed changes
 import { connectDB } from "./db/db.js";
 import os from "os";
 
@@ -17,6 +22,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: "*",
