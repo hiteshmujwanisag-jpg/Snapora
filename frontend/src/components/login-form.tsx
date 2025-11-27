@@ -29,7 +29,8 @@ export function LoginForm({
   const handleSubmit = async (e:any) => {
     e.preventDefault()
     try {
-      const response = await API.post(LOGIN_USER,{usernameoremail,password})
+      const response = await API.post(LOGIN_USER,{usernameoremail,password},{withCredentials:true})
+      
       if(response?.data?.success){
         dispatch(loginSuccess({user:response.data.user}))
         router.replace("/")
@@ -55,6 +56,8 @@ export function LoginForm({
                 <FieldLabel htmlFor="emailusername">Email or Username</FieldLabel>
                 <Input
                   id="emailusername"
+                  value={usernameoremail}
+                  onChange={(e)=>setUsernameoremail(e.target.value)}
                   type="text"
                   placeholder="Email or Username"
                   required
@@ -70,7 +73,8 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required value={password} placeholder="Password"
+                  onChange={(e)=>setPassword(e.target.value)}/>
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
