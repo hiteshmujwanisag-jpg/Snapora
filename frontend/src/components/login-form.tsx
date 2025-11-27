@@ -1,20 +1,20 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { useRouter } from "next/navigation"
-import { API } from "@/utils/ApiInstance"
-import { LOGIN_USER } from "@/constant/ApiUrls"
-import { loginSuccess } from "@/store/slice/authSlice"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { API } from "@/utils/ApiInstance";
+import { LOGIN_USER } from "@/constant/ApiUrls";
+import { loginSuccess } from "@/store/slice/authSlice";
 
 export function LoginForm({
   className,
@@ -26,19 +26,23 @@ export function LoginForm({
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault()
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     try {
-      const response = await API.post(LOGIN_USER,{usernameoremail,password},{withCredentials:true})
-      
-      if(response?.data?.success){
-        dispatch(loginSuccess({user:response.data.user}))
-        router.replace("/")
+      const response = await API.post(
+        LOGIN_USER,
+        { usernameoremail, password },
+        { withCredentials: true }
+      );
+      console.log(response.data);
+      if (response?.data?.success) {
+        dispatch(loginSuccess({ user: response.data.user }));
+        router.replace("/");
       }
     } catch (error) {
-      console.log(error,"error while log in user client side ")
+      console.log(error, "error while log in user client side ");
     }
-  }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -53,11 +57,13 @@ export function LoginForm({
                 </p>
               </div>
               <Field>
-                <FieldLabel htmlFor="emailusername">Email or Username</FieldLabel>
+                <FieldLabel htmlFor="emailusername">
+                  Email or Username
+                </FieldLabel>
                 <Input
                   id="emailusername"
                   value={usernameoremail}
-                  onChange={(e)=>setUsernameoremail(e.target.value)}
+                  onChange={(e) => setUsernameoremail(e.target.value)}
                   type="text"
                   placeholder="Email or Username"
                   required
@@ -73,8 +79,14 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required value={password} placeholder="Password"
-                  onChange={(e)=>setPassword(e.target.value)}/>
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
@@ -116,7 +128,6 @@ export function LoginForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
@@ -124,5 +135,5 @@ export function LoginForm({
         and <a href="#">Privacy Policy</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }

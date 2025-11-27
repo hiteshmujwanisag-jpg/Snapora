@@ -7,6 +7,7 @@ import {
 } from "../utils/authHelper.js";
 
 export const loginUser = async (req, res) => {
+  console.log(req.body);
   try {
     const { usernameoremail, password } = req.body;
 
@@ -36,10 +37,11 @@ export const loginUser = async (req, res) => {
     const token = await generateToken({ id: user._id });
 
     res.cookie("token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "none",
-});
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
 
     res.status(200).json({
       success: true,
@@ -132,6 +134,25 @@ export const getUserData = async (req, res) => {
     });
   } catch (error) {
     console.log(error, "error while fetching usedData from database");
+    return res.status(500).json({ success: false, message: "server error" });
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    console.log(error, "error while logging out user");
     return res.status(500).json({ success: false, message: "server error" });
   }
 };

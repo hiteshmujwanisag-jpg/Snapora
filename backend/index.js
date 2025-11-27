@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import commentRoutes from './routes/commentRoutes.js'
+import commentRoutes from "./routes/commentRoutes.js";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./db/db.js";
 import os from "os";
@@ -21,10 +21,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://192.168.1.6:3000"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
-    allowedHeaders: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
