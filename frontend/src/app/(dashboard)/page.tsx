@@ -115,10 +115,10 @@ const posts = [
     : posts;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background max-w-xl mx-auto border-r border-l border-border">
       <Header notificationCount={5} />
       <StoriesSection stories={stories} />
-      <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
+      {/* <Tabs activeTab={activeTab} onTabChange={setActiveTab} /> */}
       <PostsGrid posts={displayedPosts} />
     </div>
   );

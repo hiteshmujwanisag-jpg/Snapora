@@ -22,7 +22,7 @@ export const PostCard = ({ post }:any) => {
       <img
         src={post.image}
         alt={post.caption}
-        className="w-full aspect-[4/5] object-cover"
+        className="w-full aspect-[1/1] object-cover"
       />
       <div className="p-3">
         {/* User Info */}
@@ -50,20 +50,20 @@ export const PostCard = ({ post }:any) => {
                 liked ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-             <Image src={HomeIcon} alt='homeicon' />
+             {/* <Image src={HomeIcon} alt='homeicon' /> */}
               <span className="text-xs font-medium">{formatNumber(likeCount)}</span>
             </button>
             <button className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-smooth">
-              <Image src={HomeIcon} alt='homeicon' />
+              {/* <Image src={HomeIcon} alt='homeicon' /> */}
               <span className="text-xs font-medium">{formatNumber(post.comments)}</span>
             </button>
           </div>
           <div className="flex items-center gap-2">
             <button className="p-1.5 text-muted-foreground hover:text-foreground transition-smooth">
-             <Image src={HomeIcon} alt='homeicon' />
+             {/* <Image src={HomeIcon} alt='homeicon' /> */}
             </button>
             <button className="p-1.5 text-muted-foreground hover:text-foreground transition-smooth">
-             <Image src={HomeIcon} alt='homeicon' />
+             {/* <Image src={HomeIcon} alt='homeicon' /> */}
             </button>
           </div>
         </div>
