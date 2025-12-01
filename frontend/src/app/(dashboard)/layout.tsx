@@ -7,8 +7,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-      <main className="w-full ">
-        {children}
-      </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="w-full ">{children}</main>;
+    </SidebarProvider>
   );
 }

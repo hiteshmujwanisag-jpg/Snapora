@@ -1,5 +1,5 @@
-import HomeIcon from '../assets/icons/HomeIcon.svg'
-import { PostCard } from './PostCard';
+import HomeIcon from "../assets/icons/HomeIcon.svg";
+import { PostCard } from "./PostCard";
 
 // Post type
 type Post = {
@@ -13,17 +13,16 @@ type Post = {
 };
 
 // Posts Grid Component
-export const PostsGrid = ({ posts }: { posts: Post[] }) =>{
-  return(
-  <section className="py-6">
-    <div className="max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-2 gap-4">
-        {posts.map((post) => (
-         
-          <PostCard key={post.id} post={post} />
-        ))}
+export const PostsGrid = ({ posts }: { posts: Post[] }) => {
+  return (
+    <section className="py-4">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="grid grid-cols-1 gap-4">
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-)
-} ;
+    </section>
+  );
+};

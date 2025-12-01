@@ -1,10 +1,10 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CustomTabBar({ state, descriptors, navigation }:any) {
+export default function CustomTabBar({ state, descriptors, navigation }: any) {
   return (
     <View style={styles.container}>
-      {state.routes.map((route:any, index:any) => {
+      {state.routes.map((route: any, index: any) => {
         const isFocused = state.index === index;
 
         // Special MIDDLE BUTTON (big)
