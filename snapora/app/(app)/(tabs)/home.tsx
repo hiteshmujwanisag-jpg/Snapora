@@ -163,7 +163,7 @@ const posts = [
 export default function Home() {
   const { user, token } = useSelector((state: any) => state.auth);
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white -mb-16">
       <StatusBar className="!bg-white " translucent />
       <Header />
       <ScrollView className="flex-1">

@@ -1,6 +1,6 @@
 "use client";
 
-import {  DM_Sans } from "next/font/google";
+import { DM_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
@@ -9,7 +9,7 @@ import { loadUserFromStorage } from "@/store/slice/authSlice";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "700", "900"],
   variable: "--font-dm-sans",
   display: "swap",
 });
@@ -30,9 +30,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body
-        className={`${dmSans.variable} antialiased`}
-      >
+      <body className={`${dmSans.variable} antialiased`}>
         <Provider store={store}>{children}</Provider>
       </body>
     </html>

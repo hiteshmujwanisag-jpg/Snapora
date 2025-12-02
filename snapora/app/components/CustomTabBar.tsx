@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     height: 70,
-    backgroundColor: "#111",
+    backgroundColor: "#ffffff",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     alignItems: "center",
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
   middleButtonContainer: {
     position: "absolute",
     left: "50%",
-    transform: [{ translateX: -35 }],
-    bottom: 10,
+    transform: [{ translateX: -20 }],
+    bottom: 30,
     zIndex: 10,
   },
 

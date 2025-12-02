@@ -1,6 +1,13 @@
-"use client"
+"use client";
 
-import { ArrowLeft, MoreVertical, Grid3X3, Clapperboard, Tag, Bookmark } from "lucide-react";
+import {
+  ArrowLeft,
+  MoreVertical,
+  Grid3X3,
+  Clapperboard,
+  Tag,
+  Bookmark,
+} from "lucide-react";
 import { useState } from "react";
 
 import coverBg from "@/assets/cover-bg.jpg";
@@ -16,7 +23,17 @@ import grid8 from "@/assets/grid-1.jpg";
 import grid9 from "@/assets/grid-1.jpg";
 import Image from "next/image";
 
-const gridImages = [grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8, grid9];
+const gridImages = [
+  grid1,
+  grid2,
+  grid3,
+  grid4,
+  grid5,
+  grid6,
+  grid7,
+  grid8,
+  grid9,
+];
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -32,10 +49,13 @@ const Page = () => {
         />
         {/* Header buttons */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-          <button className="w-8 h-8 bg-background rounded-full flex items-center justify-center shadow-sm">
+          <button className="w-8 h-8 bg-background rounded-lg flex items-center justify-center shadow-sm">
             <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
-          <button className="w-8 h-8 bg-background rounded-full flex items-center justify-center shadow-sm">
+          <button className="h-8 bg-background rounded-lg flex items-center justify-center shadow-sm">
+            <div className="font-black px-4">hxxitesh</div>
+          </button>
+          <button className="w-8 h-8 bg-background rounded-lg flex items-center justify-center shadow-sm">
             <MoreVertical className="w-5 h-5 text-foreground" />
           </button>
         </div>
@@ -47,7 +67,7 @@ const Page = () => {
         <div className="flex items-end -mt-12">
           {/* Avatar */}
           <div className="relative">
-            <div className="w-30 h-30 rounded-md overflow-hidden border-4 border-background shadow-lg">
+            <div className="w-30 h-30 rounded-md overflow-hidden border-4 border-red-300">
               <Image
                 src={profileAvatar}
                 alt="Profile avatar"
@@ -78,10 +98,12 @@ const Page = () => {
           <p className="text-lg font-medium text-foreground font-dmSans">
             Full Stack Developer | Freelancer | Content Creator
           </p>
-          <p className="text-lg font-medium text-foreground mt-1">
+          <p className="text-lg font-medium text-foreground ">
             Nothing is fine but everything is gonna be fine
           </p>
-          <p className="text-lg font-medium text-foreground">Dm for work or mail</p>
+          <p className="text-lg font-medium text-foreground">
+            Dm for work or mail
+          </p>
           <a
             href="mailto:Hiteshmujwani@gmail.com"
             className="text-lg font-medium text-link"
@@ -92,10 +114,10 @@ const Page = () => {
 
         {/* Action Buttons */}
         <div className="flex gap-2 mt-4">
-          <button className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-lg text-lg font-bold">
+          <button className="flex-1 bg-primary text-primary-foreground py-2 rounded-lg text-lg font-bold">
             Follow
           </button>
-          <button className="flex-1 bg-background border border-foreground text-foreground py-2.5 rounded-lg text-lg font-bold">
+          <button className="flex-1 bg-background border border-foreground text-foreground py-2 rounded-lg text-lg font-bold">
             Message
           </button>
         </div>
@@ -124,9 +146,9 @@ const Page = () => {
       </div>
 
       {/* Photo Grid */}
-      <div className="grid grid-cols-3 gap-0.5">
+      <div className="grid grid-cols-3 gap-0.5 bg-gray-100">
         {gridImages.map((img, idx) => (
-          <div key={idx} className="aspect-square">
+          <div key={idx} className="aspect-square ">
             <Image
               src={img}
               alt={`Post ${idx + 1}`}
