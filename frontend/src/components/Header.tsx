@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Notifications from "../assets/icons/Notifications.svg";
+import { Heart, Inbox } from "lucide-react";
 
 const Header = ({ notificationCount }: { notificationCount: number }) => {
   return (
@@ -14,13 +15,9 @@ const Header = ({ notificationCount }: { notificationCount: number }) => {
 
           <span className="text-xl font-bold text-foreground">Snapora</span>
         </div>
+
         <button className="relative p-2 rounded-lg hover:bg-muted transition-smooth">
-          <Image src={Notifications} alt="notifications" className="h-6 w-6" />
-          {notificationCount > 0 && (
-            <span className="absolute top-0.5 right-0.5 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-xs font-semibold bg-red-400 text-primary-foreground rounded-full">
-              {notificationCount > 99 ? "99+" : notificationCount}
-            </span>
-          )}
+          <Heart />
         </button>
       </div>
     </header>

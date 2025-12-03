@@ -1,88 +1,43 @@
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Pressable,
+} from "react-native";
+import Home from "@/assets/icons/Home.svg";
+import Create from "@/assets/icons/Create.svg";
+import Explore from "@/assets/icons/Explore.svg";
+import Shorts from "@/assets/icons/Shorts.svg";
+import Profile from "@/assets/icons/Dashboard.svg";
 
 export default function CustomTabBar({ state, descriptors, navigation }: any) {
   return (
-    <View style={styles.container}>
+    <View className="flex-row justify-between bg-white  pt-4 h-20 px-10">
       {state.routes.map((route: any, index: any) => {
         const isFocused = state.index === index;
-
-        // Special MIDDLE BUTTON (big)
-        if (route.name === "add") {
-          return (
-            <TouchableOpacity
-              key={route.key}
-              onPress={() => navigation.navigate(route.name)}
-              style={styles.middleButtonContainer}
-            >
-              <View style={styles.middleButton}>
-                <Ionicons name="add" size={32} color="#fff" />
-              </View>
-            </TouchableOpacity>
-          );
-        }
-
-        // Normal tabs
         return (
-          <TouchableOpacity
+          <Pressable
             key={route.key}
             onPress={() => navigation.navigate(route.name)}
-            style={styles.tab}
+            className=""
           >
-            <Text style={[styles.label, isFocused && styles.active]}>
-              {route.name}
-            </Text>
-          </TouchableOpacity>
+            {route.name === "home" ? (
+              <Home height={28} width={28} />
+            ) : route.name === "add" ? (
+              <Create height={28} width={28} />
+            ) : route.name === "profile" ? (
+              <Profile height={28} width={28} />
+            ) : route.name === "explore" ? (
+              <Explore height={28} width={28} />
+            ) : route.name === "shorts" ? (
+              <Shorts height={28} width={28} />
+            ) : (
+              ""
+            )}
+          </Pressable>
         );
       })}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    height: 70,
-    backgroundColor: "#ffffff",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    alignItems: "center",
-  },
-
-  tab: {
-    flex: 1,
-    alignItems: "center",
-  },
-
-  label: {
-    color: "#888",
-    fontSize: 12,
-  },
-
-  active: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  // ★ Big Middle Button
-  middleButtonContainer: {
-    position: "absolute",
-    left: "50%",
-    transform: [{ translateX: -20 }],
-    bottom: 30,
-    zIndex: 10,
-  },
-
-  middleButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 40,
-    backgroundColor: "#ff4757",
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-  },
-});

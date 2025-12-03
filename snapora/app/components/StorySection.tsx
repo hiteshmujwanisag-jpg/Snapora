@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import Create from "../../assets/icons/Create.svg"; // optional SVG icon
 import { StoryItem } from "./StoryItem";
 
@@ -12,10 +12,20 @@ export const StoriesSection = ({ stories }: any) => {
           className="flex-row"
         >
           {/* Add Story Button */}
-          <TouchableOpacity className="flex flex-col items-center gap-1 flex-shrink-0 mr-2 ml-4">
-            <View className="!w-[80px] !h-[80px] rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center">
-              {/* <Create className="h-6 w-6" /> */}
-              <Text className="text-2xl text-gray-500">+</Text>
+          <TouchableOpacity className="flex flex-col items-center gap-1 flex-shrink-0 mr-2 ml-3">
+            <View
+              className={
+                "rounded-full overflow-hidden border-2 border-gray-300"
+              }
+            >
+              <View className="p-1 bg-white rounded-full">
+                <Image
+                  source={{
+                    uri: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop",
+                  }}
+                  className="w-20 h-20 rounded-full"
+                />
+              </View>
             </View>
             <Text className="text-xs text-black font-medium">Add Story</Text>
           </TouchableOpacity>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 
 // SVG icons (after SVG transformer setup)
 import Like from "../../assets/icons/Like.svg";
@@ -44,9 +44,9 @@ export const PostCard = ({ post }: any) => {
           </View>
         </View>
 
-        <TouchableOpacity className="p-3">
+        <Pressable className="p-3">
           <Elipse width={24} height={24} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {/* Post Image */}
@@ -61,7 +61,7 @@ export const PostCard = ({ post }: any) => {
         <View className="flex-row items-center justify-between border-b border-gray-300 p-3">
           <View className="flex-row items-center gap-3">
             {/* Like Button */}
-            <TouchableOpacity
+            <Pressable
               onPress={handleLike}
               className="flex-row items-center gap-1"
             >
@@ -73,29 +73,29 @@ export const PostCard = ({ post }: any) => {
               <Text className="text-lg font-medium">
                 {formatNumber(likeCount)}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
 
             {/* Comment */}
-            <TouchableOpacity className="flex-row items-center gap-1">
+            <Pressable className="flex-row items-center gap-1">
               <Comment width={24} height={24} />
               <Text className="text-lg font-medium">
                 {formatNumber(post.comments)}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
 
             {/* Share */}
-            <TouchableOpacity className="flex-row items-center gap-1">
+            <Pressable className="flex-row items-center gap-1">
               <ShareIcon width={24} height={24} />
               <Text className="text-lg font-medium">
                 {formatNumber(post.comments)}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           {/* Save */}
-          <TouchableOpacity>
+          <Pressable>
             <Save width={24} height={24} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {/* Caption */}

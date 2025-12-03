@@ -14,7 +14,7 @@ type Post = {
 export const PostsGrid = ({ posts }: { posts: Post[] }) => {
   return (
     <View className="py-4">
-      <View className="px-4">
+      <View className="px-3">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="flex-col flex-1 gap-4">
             {posts.map((post) => (

@@ -2,7 +2,7 @@ import Header from "@/app/components/Header";
 import { PostsGrid } from "@/app/components/PostGrid";
 import { StoriesSection } from "@/app/components/StorySection";
 import { Button } from "@/components/ui/button";
-import { View, Text, StatusBar, ScrollView } from "react-native";
+import { View, Text, ScrollView, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
@@ -163,10 +163,10 @@ const posts = [
 export default function Home() {
   const { user, token } = useSelector((state: any) => state.auth);
   return (
-    <SafeAreaView className="flex-1 bg-white -mb-16">
-      <StatusBar className="!bg-white " translucent />
+    <SafeAreaView className="flex-1 bg-white -mb-10">
+      <StatusBar className="bg-transparent" />
       <Header />
-      <ScrollView className="flex-1">
+      <ScrollView className=" ">
         <StoriesSection stories={stories} />
         <PostsGrid posts={posts} />
       </ScrollView>

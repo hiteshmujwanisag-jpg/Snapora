@@ -22,6 +22,7 @@ import grid7 from "@/assets/grid-1.jpg";
 import grid8 from "@/assets/grid-1.jpg";
 import grid9 from "@/assets/grid-1.jpg";
 import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
 
 const gridImages = [
   grid1,
@@ -37,6 +38,7 @@ const gridImages = [
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const { userId } = useParams();
 
   return (
     <div className="min-h-screen bg-background max-w-xl mx-auto border-r border-l border-border">
@@ -53,7 +55,7 @@ const Page = () => {
             <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
           <button className="h-8 bg-background rounded-lg flex items-center justify-center shadow-sm">
-            <div className="font-black px-4">hxxitesh</div>
+            <div className="font-black px-4">{userId}</div>
           </button>
           <button className="w-8 h-8 bg-background rounded-lg flex items-center justify-center shadow-sm">
             <MoreVertical className="w-5 h-5 text-foreground" />
@@ -71,7 +73,7 @@ const Page = () => {
               <Image
                 src={profileAvatar}
                 alt="Profile avatar"
-                className="w-full h-full object-cover "
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -115,10 +117,10 @@ const Page = () => {
         {/* Action Buttons */}
         <div className="flex gap-2 mt-4">
           <button className="flex-1 bg-primary text-primary-foreground py-2 rounded-lg text-lg font-bold">
-            Edit Profile
+            Follow
           </button>
           <button className="flex-1 bg-background border border-foreground text-foreground py-2 rounded-lg text-lg font-bold">
-            Share Profile
+            Message
           </button>
         </div>
       </div>

@@ -28,7 +28,7 @@ import Image from "next/image";
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
@@ -48,7 +48,7 @@ const items = [
   },
   {
     title: "Notifications",
-    url: "#",
+    url: "/notifications",
     icon: Notification,
   },
   {

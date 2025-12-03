@@ -5,6 +5,8 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  StatusBar,
+  Pressable,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { deleteItem } from "@/app/utils/storage";
@@ -47,6 +49,7 @@ export default function Profile() {
 
   return (
     <ScrollView className="flex-1 bg-white">
+      <StatusBar className="bg-transparent " />
       {/* Cover Image + Header */}
       <View className="relative h-[220px]">
         <Image
@@ -75,7 +78,7 @@ export default function Profile() {
         {/* Avatar + Stats */}
         <View className="flex-row items-end -mt-12">
           {/* Avatar */}
-          <View className="w-28 h-28 rounded-lg overflow-hidden border-4 border-white">
+          <View className="w-32 h-32 rounded-full overflow-hidden border-4 border-white">
             <Image
               source={require("@/assets/grid-1.jpg")}
               className="w-full h-full object-cover"
@@ -118,12 +121,12 @@ export default function Profile() {
         <View className="flex-row gap-2 mt-4">
           <TouchableOpacity className="flex-1 bg-primarySolid border-black border py-2 rounded-lg">
             <Text className="text-black text-center font-bold text-lg">
-              Follow
+              Edit Profile
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-1 border border-black bg-primarySolid py-2 rounded-lg">
+          <TouchableOpacity className="flex-1 border border-black bg-white py-2 rounded-lg">
             <Text className="text-black text-center font-bold text-lg">
-              Message
+              Share Profile
             </Text>
           </TouchableOpacity>
         </View>
@@ -137,17 +140,17 @@ export default function Profile() {
           { icon: Tag, id: 2 },
           { icon: Bookmark, id: 3 },
         ].map(({ icon: Icon, id }) => (
-          <TouchableOpacity
+          <Pressable
             key={id}
             onPress={() => setActiveTab(id)}
             className={`flex-1 py-3 items-center border-b-2 ${
               activeTab === id
-                ? "border-black"
+                ? "border-black opacity-100"
                 : "border-transparent opacity-50"
             }`}
           >
             <Icon size={26} />
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </View>
 
