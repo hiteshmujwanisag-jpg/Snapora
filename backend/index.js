@@ -6,6 +6,9 @@ import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./db/db.js";
+import http from "http"
+import {Server} from "socket.io"
+import initSocket from "./socket/socket.js";
 import os from "os";
 
 dotenv.config();
@@ -21,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://192.168.1.6:3000", "http://192.168.1.6:8081"],
+    origin: ["http://192.168.0.34:3000", "http://192.168.1.6:8081"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -36,7 +39,17 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/post", postRoutes);
 app.use("/api/v1/comment", commentRoutes);
 
-app.listen(PORT, () => {
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: { origin: '*' },
+  credentials:true
+});
+
+initSocket(io);
+
+server.listen(PORT, () => {
   const networkInterfaces = os.networkInterfaces();
   let localIP = "localhost";
 

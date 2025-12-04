@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import useSocket from "@/hooks/useSocket";
 
 interface Message {
   id: string;
@@ -213,13 +214,24 @@ const mockMessages: Message[] = [
 
 const Chat: React.FC = () => {
   const navigate = useRouter();
-  const { userId } = useParams<{ userId: string }>();
+  const { chatId }:any = useParams<{ userId: string }>();
   const [messages, setMessages] = useState<Message[]>(mockMessages);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+   const socket = useSocket();
 
-  const user = mockUsers[userId || "1"] || mockUsers["1"];
+  useEffect(() => {
+    if (!socket.current) return;
+
+    socket.current.emit("join_chat", chatId);
+
+    return () => {
+      socket.current.emit("leave_chat", chatId);
+    };
+  }, [socket, "chatId"]);
+
+  const user = mockUsers[chatId || "1"] || mockUsers["1"];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
